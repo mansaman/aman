@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+  
+  --color-obsidian: #030307;
+  --color-obsidian-light: #0a0a14;
+  --color-glass: rgba(8, 8, 16, 0.65);
+  --color-neon-cyan: #00f2fe;
+  --color-neon-purple: #9b51e0;
+  --color-neon-magenta: #ff007f;
+  --color-neon-emerald: #05ffa1;
+  --color-dark-purple: #140526;
+  
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+:root {
+  --background: #030307;
+  --foreground: #f4f4f5;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(3, 3, 7, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-cyan);
+}
+
+/* Hide cursor on desktop where custom cursor is used */
+@media (min-width: 1024px) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Premium Noise overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0.02;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glassmorphism custom classes */
+.glass-panel {
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(15, 15, 30, 0.7);
+  border-color: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Glow lines */
+.glow-line-horizontal {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.5), transparent);
+}
+
+.glow-line-vertical {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(155, 81, 224, 0.5), transparent);
+}
