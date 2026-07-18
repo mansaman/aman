@@ -5,6 +5,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import FaviconAnimator from "@/components/FaviconAnimator";
 
 export const metadata: Metadata = {
   title: {
@@ -33,6 +34,7 @@ export default function RootLayout({
 
           <Preloader />
           <CustomCursor />
+          <FaviconAnimator />
           <Nav />
 
           {children}

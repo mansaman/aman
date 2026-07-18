@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import { NAV_LINKS } from '@/data';
+import AnimatedMark from '@/components/AnimatedMark';
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,9 +53,13 @@ export default function Nav() {
         <div className="flex items-baseline justify-between px-6 md:px-10 py-5">
           <Link
             href="/"
-            className="font-display uppercase text-sm tracking-[0.15em] text-white"
+            className="flex items-center gap-2 text-white"
+            aria-label="Aman Sharma"
           >
-            Aman Sharma
+            <AnimatedMark size={26} />
+            <span className="font-display uppercase text-sm tracking-[0.15em]">
+              Aman Sharma
+            </span>
           </Link>
 
           {/* Desktop links */}
