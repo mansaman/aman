@@ -1,11 +1,21 @@
-export interface TimelineItem {
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
+}
+
+export interface JourneyPhase {
   id: string;
-  year: string;
+  number: string; // "01".."06"
+  kicker: string; // e.g. "Phase 1"
   title: string;
   subtitle: string;
-  logo: string; // Will store standard lucide icon names or custom SVGs
-  description: string;
-  category: 'education' | 'career' | 'achievement';
+  paragraphs: string[];
+  details: string[]; // plain-text list — channels, tools, markets
 }
 
 export interface Company {
@@ -13,161 +23,317 @@ export interface Company {
   name: string;
   role: string;
   period: string;
-  logoColor: string; // Tailwind color class e.g., 'text-cyan-400'
   summary: string;
   achievements: string[];
   skillsUsed: string[];
-  featuredProject?: {
-    title: string;
-    description: string;
-    tech: string[];
-  };
+  logoFile?: string; // drop a file in /public/logos and set e.g. "/logos/easyeat.svg" to replace the designed wordmark
 }
+
+export interface ProjectCategory {
+  id: string;
+  name: string;
+  description: string;
+  highlights: string[];
+}
+
+export interface CaseStudy {
+  id: string;
+  stat: string;
+  statLabel: string;
+  title: string;
+  description: string;
+}
+
+export interface PlaygroundItem {
+  id: string;
+  name: string;
+  description: string;
+  status: 'live' | 'building' | 'concept';
+}
+
+export const NAV_LINKS: NavLink[] = [
+  { href: '/', label: 'Home' },
+  { href: '/journey', label: 'Journey' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/playground', label: 'Playground' },
+  { href: '/contact', label: 'Contact' },
+];
 
 export const PERSONAL_INFO = {
   name: "Aman",
   surname: "Sharma",
-  title: "Creative Engineer & Digital Architect",
-  tagline: "I build the impossible.",
-  subtitle: "Design-driven developer specializing in elite web experiences, custom animations, and scalable full-stack infrastructure. I don't just write code; I orchestrate digital motion.",
-  email: "aman@example.com",
-  phone: "+1 (555) 019-2831",
-  address: "San Francisco, CA",
+  title: "Growth Marketing Manager & Marketing Technologist",
+  tagline: "Growth, built end to end.",
+  subtitle: "I build revenue engines — SEO, paid acquisition, CRM, automation, and AI wired into one system. Around five years across B2B SaaS in India, Southeast Asia, and the Gulf.",
+  email: "amanmohan.sharma@gmail.com",
+  phone: "+91 8448176716",
+  address: "India",
   socials: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
+    github: "https://github.com/amanshr13",
+    linkedin: "https://www.linkedin.com/in/aman-sharma-77243b2a0/",
   }
 };
 
-export const TIMELINE_DATA: TimelineItem[] = [
+export const STATS: Stat[] = [
+  { value: "300+", label: "Qualified leads per month from organic search" },
+  { value: "100K+", label: "Monthly search impressions, built from near zero" },
+  { value: "05", label: "International markets — MY · ID · TH · SG · AE" },
+  { value: "5YRS", label: "Across growth, SEO, paid, CRM & automation" },
+];
+
+export const JOURNEY_PHASES: JourneyPhase[] = [
   {
-    id: "milestone-1",
-    year: "2018 - 2019",
-    title: "The Genesis",
-    subtitle: "Self-Taught & Open Source",
-    logo: "Terminal",
-    description: "Deep-dived into algorithms, vanilla JS mechanics, and SVG layouts. Contributed to early open-source CSS projects.",
-    category: "education"
+    id: "phase-1",
+    number: "01",
+    kicker: "Phase 1",
+    title: "The Curious Builder",
+    subtitle: "Engineering & MCA years",
+    paragraphs: [
+      "The journey didn't start with paid ads or SEO. It started with curiosity. While studying engineering and later pursuing an MCA, one question kept surfacing: how do businesses actually grow online?",
+      "Instead of committing to a single discipline, I explored everything at once — web development, SEO, content marketing, branding, analytics, automation, and digital advertising. That refusal to specialize early became a competitive advantage rather than a weakness.",
+    ],
+    details: ["Web Development", "SEO", "Content", "Branding", "Analytics", "Automation", "Digital Advertising"],
   },
   {
-    id: "milestone-2",
-    year: "2020 - 2021",
-    title: "Vortex Creative Agency",
-    subtitle: "Creative Developer",
-    logo: "Framer",
-    description: "Orchestrated layout engines, interactive GSAP web animations, and three.js canvas components for boutique design brands.",
-    category: "career"
+    id: "phase-2",
+    number: "02",
+    kicker: "Phase 2",
+    title: "Every Layer of Marketing",
+    subtitle: "Deliberate breadth before depth",
+    paragraphs: [
+      "Rather than specializing immediately, I deliberately learned every layer of digital marketing — the channels, the infrastructure underneath them, and how they connect.",
+      "The result: instead of saying “that's not my job,” I became the person who could solve almost any marketing problem in the room.",
+    ],
+    details: ["SEO", "Google Ads", "Meta Ads", "Landing Pages", "Email Marketing", "Analytics", "CRM", "Content", "Website Development", "Marketing Automation"],
   },
   {
-    id: "milestone-3",
-    year: "2021 - 2023",
-    title: "Scribe AI",
-    subtitle: "Senior Full-Stack Engineer",
-    logo: "Cpu",
-    description: "Engineered high-throughput AI document analysis platforms using React, Node.js, and Python. Optimized DB querying speed by 40%.",
-    category: "career"
+    id: "phase-3",
+    number: "03",
+    kicker: "Phase 3",
+    title: "Organic Growth Engines",
+    subtitle: "SEO as a system, not a task",
+    paragraphs: [
+      "The biggest turning point was SEO — not publishing blogs, but building complete organic growth systems: technical SEO, content strategy, keyword research, internal linking, site architecture, programmatic SEO, and performance optimization working as one machine.",
+      "That machine took websites from virtually zero visibility to hundreds of thousands of monthly search impressions — and turned organic search into a sustainable inbound channel generating more than 300 qualified leads every month.",
+    ],
+    details: ["Technical SEO", "Content Strategy", "Keyword Research", "Internal Linking", "Site Architecture", "Programmatic SEO", "Performance", "Analytics"],
   },
   {
-    id: "milestone-4",
-    year: "2023 - 2025",
-    title: "Nova Labs",
-    subtitle: "Principal Frontend & Product Lead",
-    logo: "Globe",
-    description: "Scaled user interfaces from scratch, designed design-systems used by 30+ developers, and managed complex next.js builds.",
-    category: "career"
+    id: "phase-4",
+    number: "04",
+    kicker: "Phase 4",
+    title: "International Performance",
+    subtitle: "Five markets, one discipline: efficiency",
+    paragraphs: [
+      "From organic, I expanded into paid acquisition — managing campaigns across Malaysia, Indonesia, Thailand, Singapore, and Dubai on Google, Meta, and LinkedIn.",
+      "The focus was never spending more. It was making every unit of spend work harder: sharper targeting, creative testing, better landing pages, and honest attribution. The result was lower acquisition costs and international campaigns that actually returned.",
+    ],
+    details: ["Malaysia", "Indonesia", "Thailand", "Singapore", "Dubai", "Google Ads", "Meta Ads", "LinkedIn Ads", "Retargeting", "Budget Optimization"],
   },
   {
-    id: "milestone-5",
-    year: "2025 - Present",
-    title: "Independent Digital Architect",
-    subtitle: "Consultant & Lead Engineer",
-    logo: "Compass",
-    description: "Directing tech architectures, system design, and building custom animated platforms for enterprise and web3 startups.",
-    category: "achievement"
-  }
+    id: "phase-5",
+    number: "05",
+    kicker: "Phase 5",
+    title: "The Full Revenue Engine",
+    subtitle: "CRM, automation, analytics, web",
+    paragraphs: [
+      "Most marketers stop at running campaigns. The next step was learning how every department connects — CRM (HubSpot, Zoho, Pipedrive), lifecycle and WhatsApp automation, lead routing, GA4, Google Tag Manager, Looker Studio, attribution, and conversion-focused builds in WordPress and Webflow.",
+      "That shift changed the job title in practice: from channel specialist to someone responsible for the entire revenue engine. And as AI transformed marketing, I embraced it early — ChatGPT, Claude, Gemini, and Midjourney embedded into content, research, landing pages, and operations. Not replacing the marketer; making a faster one.",
+    ],
+    details: ["HubSpot", "Zoho CRM", "Pipedrive", "WhatsApp Automation", "Lead Routing", "GA4", "Google Tag Manager", "Looker Studio", "WordPress", "Webflow", "ChatGPT", "Claude", "Gemini", "Midjourney"],
+  },
+  {
+    id: "phase-6",
+    number: "06",
+    kicker: "Now",
+    title: "Growth Builder",
+    subtitle: "The next chapter: owning growth end to end",
+    paragraphs: [
+      "Growth doesn't come from a single channel. It comes from systems — where strategy, technology, automation, data, and execution work together. That belief is why I never stayed just an SEO specialist or just a performance marketer.",
+      "Today that means around five years across growth marketing, performance, SEO, GTM strategy, automation, CRM, analytics, and web development. The next stage isn't becoming a better channel marketer — it's leading growth end to end: market strategy, acquisition, automation, analytics, and revenue optimization as one job.",
+    ],
+    details: ["Inbound Engines", "Paid Acquisition", "GTM Strategy", "Conversion-Focused Web", "Attribution", "Marketing Ops", "Revenue Alignment"],
+  },
 ];
 
 export const COMPANIES_DATA: Company[] = [
   {
-    id: "nova-labs",
-    name: "Nova Labs",
-    role: "Principal Frontend & Product Lead",
-    period: "2023 - 2025",
-    logoColor: "from-blue-500 to-indigo-500",
-    summary: "Led frontend operations and product layout design for a fast-growing collaborative software platform, scaling active users to 500k+.",
+    id: "the-feast",
+    name: "The Feast",
+    role: "Assistant Marketing Manager",
+    period: "Current",
+    summary: "Own the growth engine for a restaurant-technology business — blending SEO, performance marketing, CRM, and automation into a single cross-channel acquisition system.",
     achievements: [
-      "Architected and deployed a multi-tenant layout builder using Next.js App Router and drag-and-drop systems.",
-      "Established standard Tailwind styling guidelines, decreasing CSS bundle sizes by 35%.",
-      "Mentored a team of 8 engineers in reactive web principles and motion choreography using GSAP.",
-      "Integrated secure real-time collaboration widgets using WebSockets and conflict-free replicated data types."
+      "Built and ran inbound growth systems combining technical SEO, content, and programmatic pages alongside paid acquisition.",
+      "Managed CRM and lifecycle automation to move leads from first touch through to qualified pipeline.",
+      "Coordinated GTM execution across marketing, sales, and product to keep messaging and targeting aligned.",
+      "Used AI tools to accelerate content production, research, and campaign workflows."
     ],
-    skillsUsed: [
-      "Next.js", "React", "TypeScript", "GSAP", "Tailwind CSS", "WebSockets", "Node.js", "System Architecture", "UI/UX Design", "Vercel"
-    ],
-    featuredProject: {
-      title: "Nova Collaborative Workspace",
-      description: "A real-time workspace drawing canvas and document builder designed for high-concurrency design operations.",
-      tech: ["Next.js", "CRDTs", "WebSockets", "Tailwind", "Canvas API"]
-    }
+    skillsUsed: ["SEO", "Performance Marketing", "GTM Strategy", "CRM", "Marketing Automation", "Analytics", "AI Tools"],
   },
   {
-    id: "scribe-ai",
-    name: "Scribe AI",
-    role: "Senior Full-Stack Engineer",
-    period: "2021 - 2023",
-    logoColor: "from-purple-500 to-pink-500",
-    summary: "Built and scaled deep-learning document analysis interfaces and server pipelines, handling millions of pages processed daily.",
+    id: "easyeat",
+    name: "EasyEat",
+    role: "Growth & Performance Marketing",
+    period: "Restaurant Tech",
+    summary: "Drove acquisition and lifecycle marketing for a restaurant technology / POS platform, connecting paid channels to CRM-driven nurture.",
     achievements: [
-      "Designed data-dense canvas pipelines allowing users to annotate AI text highlights dynamically.",
-      "Wrote complex PostgreSQL queries and structured Redis caching layers, reducing server response latencies from 350ms to 80ms.",
-      "Co-authored Python microservices analyzing document structures and feeding React layout systems.",
-      "Pioneered CI/CD test automations using Playwright, cutting deployment bugs by 60%."
+      "Ran paid acquisition campaigns across Google and Meta targeted at restaurant and F&B operators.",
+      "Built lead nurturing and WhatsApp automation flows to shorten sales cycles.",
+      "Set up analytics and attribution to track campaign performance against pipeline, not just clicks.",
     ],
-    skillsUsed: [
-      "React", "TypeScript", "Node.js", "Python", "FastAPI", "PostgreSQL", "Redis", "Docker", "Playwright", "AWS", "Tailwind CSS"
-    ],
-    featuredProject: {
-      title: "Scribe Lens",
-      description: "AI document viewer and dynamic text processing engine highlighting semantic patterns instantly.",
-      tech: ["React", "FastAPI", "PostgreSQL", "Tailwind", "Docker"]
-    }
+    skillsUsed: ["Google Ads", "Meta Ads", "CRM", "WhatsApp Automation", "GA4", "Landing Pages"],
   },
   {
-    id: "vortex-creative",
-    name: "Vortex Creative Agency",
-    role: "Creative Developer",
-    period: "2020 - 2021",
-    logoColor: "from-cyan-500 to-teal-500",
-    summary: "Created high-end interactive websites and branding concepts for architectural, luxury, and technology brands worldwide.",
+    id: "foodmarkethub",
+    name: "FoodMarketHub",
+    role: "Marketing & GTM",
+    period: "B2B SaaS · SEA",
+    summary: "Supported go-to-market and international performance marketing for a B2B SaaS procurement and POS platform across Southeast Asia.",
     achievements: [
-      "Delivered 15+ award-winning websites featuring immersive canvas animations, custom WebGL materials, and complex GSAP scroll paths.",
-      "Reduced load times of asset-heavy homepages by 50% through smart assets preloading and critical CSS optimization.",
-      "Collaborated closely with visual artists to translate complex 3D branding into performant responsive CSS structures.",
-      "Engineered micro-interactions, responsive menus, and immersive sliders used by major luxury clients."
+      "Managed performance campaigns across Malaysia, Indonesia, Thailand, and Singapore.",
+      "Built landing pages and funnels tailored to each market's buyer intent.",
+      "Optimized budget allocation and conversion tracking across multiple ad platforms."
     ],
-    skillsUsed: [
-      "HTML5", "CSS3", "JavaScript", "GSAP", "ScrollTrigger", "Three.js", "Figma", "SVG Animation", "WebGL", "Branding", "Responsive Design"
+    skillsUsed: ["Performance Marketing", "GTM Strategy", "Meta Ads", "Google Ads", "Conversion Tracking", "Funnel Analysis"],
+  },
+  {
+    id: "revenue-nomad",
+    name: "Revenue Nomad",
+    role: "Growth Marketing",
+    period: "FinTech · B2B",
+    summary: "Worked on growth and demand generation for a FinTech-adjacent B2B services business, tying paid and organic efforts to revenue outcomes.",
+    achievements: [
+      "Built inbound content and SEO foundations to support outbound and paid efforts.",
+      "Implemented CRM workflows connecting marketing qualified leads to sales follow-up.",
+      "Set up dashboards in Looker Studio for cross-channel attribution."
     ],
-    featuredProject: {
-      title: "Aura Luxury Portfolio",
-      description: "An immersive digital brochure using 3D camera transitions and interactive typography for an award-winning developer.",
-      tech: ["Vanilla JS", "GSAP", "Three.js", "WebGL shaders"]
-    }
+    skillsUsed: ["SEO", "CRM", "Attribution", "Looker Studio", "Email Marketing", "Lead Nurturing"],
+  },
+  {
+    id: "maxinor",
+    name: "Maxinor",
+    role: "Marketing Technologist",
+    period: "Venture Studio · AI",
+    summary: "Combined marketing and technical execution in a venture studio environment, working across multiple early-stage AI and tech products.",
+    achievements: [
+      "Used AI tools (ChatGPT, Claude, Gemini, Midjourney) to accelerate content, research, and landing page development.",
+      "Built and shipped websites and landing pages using WordPress, Webflow, and hand-coded HTML/CSS/Tailwind.",
+      "Set up marketing automation and GTM workflows for multiple portfolio products simultaneously."
+    ],
+    skillsUsed: ["AI Tools", "Webflow", "WordPress", "Tailwind CSS", "Automation", "GTM Strategy", "Figma"],
+  },
+];
+
+export const INDUSTRIES = [
+  "Restaurant Technology", "SaaS", "AI", "FinTech", "B2B Services", "POS Solutions", "Venture Studios",
+];
+
+export const PROJECT_CATEGORIES: ProjectCategory[] = [
+  {
+    id: "seo",
+    name: "SEO",
+    description: "Technical and programmatic SEO systems built to compound organic visibility over time.",
+    highlights: ["Technical audits & site architecture", "Programmatic SEO pages", "Keyword & content strategy", "300+ qualified leads/month via organic"]
+  },
+  {
+    id: "performance-marketing",
+    name: "Performance",
+    description: "Paid acquisition across Google, Meta, and LinkedIn, run across five international markets.",
+    highlights: ["Malaysia, Indonesia, Thailand, Singapore, Dubai", "Google Ads & Meta Ads", "Retargeting & audience segmentation", "Efficiency-first budget optimization"]
+  },
+  {
+    id: "gtm",
+    name: "GTM",
+    description: "Go-to-market strategy connecting product, sales, and marketing into one launch motion.",
+    highlights: ["Cross-market launch planning", "Positioning & messaging", "Sales-marketing alignment", "Channel prioritization"]
+  },
+  {
+    id: "crm",
+    name: "CRM",
+    description: "CRM systems and lifecycle workflows that turn leads into pipeline, not just contacts.",
+    highlights: ["HubSpot, Zoho CRM, Pipedrive", "Lead scoring & routing", "Lifecycle nurture sequences", "Sales handoff automation"]
+  },
+  {
+    id: "ai",
+    name: "AI",
+    description: "Practical AI integration into everyday marketing operations — not novelty, throughput.",
+    highlights: ["ChatGPT & Claude for content/research", "Midjourney for creative assets", "AI-assisted landing page builds", "Automated workflow tooling"]
+  },
+  {
+    id: "websites",
+    name: "Websites",
+    description: "Conversion-focused websites and landing pages built and shipped without waiting on engineering.",
+    highlights: ["WordPress & Webflow builds", "Hand-coded HTML/CSS/Tailwind", "CRO-driven UI improvements", "Figma-to-live handoff"]
+  },
+  {
+    id: "automation",
+    name: "Automation",
+    description: "Marketing operations automated end-to-end — from first touch to sales-ready lead.",
+    highlights: ["WhatsApp automation", "Lead routing logic", "Lifecycle email workflows", "Cross-tool marketing ops"]
+  },
+  {
+    id: "case-studies",
+    name: "Case Studies",
+    description: "Deeper write-ups on specific growth systems, campaigns, and results — added over time.",
+    highlights: ["Organic growth to 300+ leads/month", "International paid acquisition scale-up", "Full-funnel CRM automation builds"]
   }
 ];
 
-export const SKILLS_CATEGORIES = [
+export const CASE_STUDIES: CaseStudy[] = [
   {
-    name: "Engineering core",
-    skills: ["TypeScript", "Next.js", "React", "Node.js", "Python", "Go", "GraphQL", "PostgreSQL", "Redis", "Docker"]
+    id: "organic-engine",
+    stat: "300+",
+    statLabel: "qualified leads / month",
+    title: "Zero to an organic lead engine",
+    description: "Technical SEO, content strategy, programmatic pages, and site architecture built as one system — taking search visibility from near zero to hundreds of thousands of monthly impressions and a sustained 300+ qualified leads per month.",
   },
   {
-    name: "Creative & Interactive",
-    skills: ["GSAP", "ScrollTrigger", "WebGL / Three.js", "Tailwind CSS", "CSS Keyframes", "Framer Motion", "Canvas API", "SVG Animation", "Figma Design", "Creative Copy"]
+    id: "intl-paid",
+    stat: "05",
+    statLabel: "markets scaled",
+    title: "International paid acquisition",
+    description: "Google, Meta, and LinkedIn campaigns across Malaysia, Indonesia, Thailand, Singapore, and Dubai — efficiency-first: sharper audiences, creative testing, and landing pages that lowered acquisition costs while scaling reach.",
   },
   {
-    name: "System & Architecture",
-    skills: ["AWS", "Vercel / Netlify", "CI/CD Pipelines", "WebSockets / Realtime", "DB Schema Design", "Performance Audits", "Microservices", "API Gateways", "Edge Functions", "Monorepos"]
+    id: "revenue-ops",
+    stat: "1",
+    statLabel: "connected revenue engine",
+    title: "Marketing wired into revenue",
+    description: "CRM, lifecycle automation, WhatsApp flows, lead routing, and attribution dashboards connecting first touch to closed revenue — so marketing reports pipeline, not clicks.",
+  },
+];
+
+export const PLAYGROUND_DATA: PlaygroundItem[] = [
+  {
+    id: "experiments",
+    name: "Experiments",
+    description: "Small, fast marketing and growth experiments — creative tests, landing page variants, and channel trials.",
+    status: "building"
+  },
+  {
+    id: "ai-tools",
+    name: "AI Tools",
+    description: "AI-assisted workflows and internal tools built to speed up content, research, and campaign operations.",
+    status: "building"
+  },
+  {
+    id: "designs",
+    name: "Designs",
+    description: "Figma explorations and visual concepts for landing pages, brand assets, and UI components.",
+    status: "concept"
+  },
+  {
+    id: "components",
+    name: "Components",
+    description: "Reusable web components and site sections built with Webflow, WordPress, and Tailwind.",
+    status: "concept"
+  },
+  {
+    id: "labs",
+    name: "Labs",
+    description: "Longer-running side builds combining growth marketing with hands-on web development.",
+    status: "concept"
   }
 ];

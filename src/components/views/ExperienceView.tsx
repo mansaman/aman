@@ -1,35 +1,29 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { COMPANIES_DATA } from '@/data';
+import Link from 'next/link';
+import { COMPANIES_DATA, INDUSTRIES } from '@/data';
+import Wordmark from '@/components/Wordmark';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Experience() {
+export default function ExperienceView() {
   const containerRef = useRef<HTMLElement>(null);
   const [openId, setOpenId] = useState<string | null>(null);
 
   useGSAP(
     () => {
+      // Page-header masked slide-up on load
       gsap.fromTo(
-        '.exp-header',
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.exp-header',
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        }
+        '.hdr-line',
+        { yPercent: 110 },
+        { yPercent: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08 }
       );
 
+      // Index rows — play-once reveal
       gsap.fromTo(
         '.exp-row',
         { y: 40, opacity: 0 },
@@ -47,8 +41,9 @@ export default function Experience() {
         }
       );
 
+      // Industries block
       gsap.fromTo(
-        '.exp-footer',
+        '.exp-industries',
         { y: 40, opacity: 0 },
         {
           y: 0,
@@ -56,7 +51,24 @@ export default function Experience() {
           duration: 0.7,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '.exp-footer',
+            trigger: '.exp-industries',
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+
+      // Next-page CTA
+      gsap.fromTo(
+        '.exp-next',
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.exp-next',
             start: 'top 92%',
             toggleActions: 'play none none none',
           },
@@ -67,20 +79,26 @@ export default function Experience() {
   );
 
   return (
-    <section
-      ref={containerRef}
-      id="experience"
-      className="relative border-t border-line py-24 md:py-36"
-    >
-      {/* Header row */}
-      <div className="exp-header flex items-end justify-between px-6 md:px-10 pb-8 border-b border-line">
-        <h2 className="font-display uppercase leading-[0.82] text-[clamp(3.5rem,10vw,9rem)]">
-          Experience<span className="text-red">.</span>
-        </h2>
-        <span className="text-red text-xs tracking-[0.3em] uppercase pb-2 shrink-0">
-          (03)
-        </span>
-      </div>
+    <main ref={containerRef} className="min-h-screen bg-ink">
+      {/* Page header */}
+      <header className="px-6 md:px-10 pt-32 md:pt-40 pb-10 border-b border-line">
+        <div className="overflow-hidden">
+          <p className="hdr-line uppercase text-[11px] tracking-[0.3em] text-mute mb-6">
+            (03) — Five companies, one operating system
+          </p>
+        </div>
+        <div className="overflow-hidden">
+          <h1 className="hdr-line font-display uppercase leading-[0.82] text-[clamp(4rem,13vw,12rem)]">
+            Experience<span className="text-red">.</span>
+          </h1>
+        </div>
+        <div className="overflow-hidden mt-8">
+          <p className="hdr-line text-sm md:text-base text-mute leading-relaxed max-w-md">
+            Around five years running growth for B2B SaaS — building revenue
+            engines across India, Southeast Asia, and the Gulf.
+          </p>
+        </div>
+      </header>
 
       {/* Index rows */}
       <div className="exp-rows">
@@ -105,9 +123,13 @@ export default function Experience() {
                   {number}
                 </span>
 
-                {/* Company name — the row's visual weight */}
-                <span className="font-display uppercase text-3xl md:text-6xl leading-none transition-colors duration-300 group-hover:text-red">
-                  {company.name}
+                {/* Company wordmark — the row's visual weight */}
+                <span className="text-3xl md:text-6xl leading-none transition-colors duration-300 group-hover:text-red">
+                  <Wordmark
+                    id={company.id}
+                    name={company.name}
+                    logoFile={company.logoFile}
+                  />
                 </span>
 
                 {/* Role + period (desktop, right side) */}
@@ -129,7 +151,7 @@ export default function Experience() {
                   {isOpen ? '−' : '+'}
                 </span>
 
-                {/* Role + period (mobile, stacked under name) */}
+                {/* Role + period (mobile, stacked under wordmark) */}
                 <span className="md:hidden col-start-2 col-span-2 uppercase text-[11px] tracking-[0.3em] text-mute">
                   {company.role} — {company.period}
                 </span>
@@ -173,11 +195,37 @@ export default function Experience() {
         })}
       </div>
 
-      {/* Footer line */}
-      <p className="exp-footer border-t border-line px-6 md:px-10 pt-8 uppercase text-[11px] tracking-[0.3em] text-mute">
-        Industries — Restaurant Tech / SaaS / AI / FinTech / B2B / Venture
-        Studios
-      </p>
-    </section>
+      {/* Industries */}
+      <section className="exp-industries border-t border-line px-6 md:px-10 py-16">
+        <p className="uppercase text-[11px] tracking-[0.3em] text-mute mb-8">
+          Industries
+        </p>
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+          {INDUSTRIES.map((industry, i) => (
+            <span key={industry} className="flex items-baseline gap-x-4">
+              <span className="font-display uppercase text-2xl md:text-4xl text-bone/30">
+                {industry}
+              </span>
+              {i < INDUSTRIES.length - 1 && (
+                <span className="text-red text-lg md:text-xl">✳</span>
+              )}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Next-page CTA */}
+      <Link
+        href="/projects"
+        className="exp-next group block border-t border-line px-6 md:px-10 py-16 md:py-24"
+      >
+        <p className="uppercase text-[11px] tracking-[0.3em] text-mute mb-4">
+          Next
+        </p>
+        <span className="font-display uppercase leading-[0.85] text-[clamp(3rem,9vw,8rem)] group-hover:text-red transition-colors duration-300">
+          Projects →
+        </span>
+      </Link>
+    </main>
   );
 }
