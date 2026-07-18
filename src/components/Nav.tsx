@@ -12,11 +12,6 @@ export default function Nav() {
   const lastScrollY = useRef(0);
   const pathname = usePathname();
 
-  // Close the mobile menu on navigation
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -101,6 +96,7 @@ export default function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => setIsOpen(false)}
                 className="flex items-baseline gap-4 text-left group"
               >
                 <span className="text-red text-xs tracking-[0.2em]">

@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
-  --font-serifa: var(--font-instrument), Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-display: Impact, "Arial Narrow", sans-serif;
+  --font-serifa: Georgia, serif;
 
   --color-ink: #0c0c0c;
   --color-bone: #f2efe9;

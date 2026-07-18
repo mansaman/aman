@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Timeline() {
+export default function Timeline({ withHeader = true }: { withHeader?: boolean }) {
   const containerRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -132,12 +132,14 @@ export default function Timeline() {
       />
 
       {/* Header row */}
+      {withHeader && (
       <div className="timeline-header flex items-end justify-between px-6 md:px-10 pb-8 md:pt-20 border-b border-line shrink-0">
         <h2 className="font-display uppercase leading-[0.82] text-[clamp(3.5rem,10vw,9rem)]">
           Journey<span className="text-red">.</span>
         </h2>
         <span className="text-red text-xs tracking-[0.3em] uppercase pb-2 shrink-0">(02)</span>
       </div>
+      )}
 
       {/* Track — horizontal on desktop, vertical stack on mobile */}
       <div className="md:flex-1 md:flex md:items-center">

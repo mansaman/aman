@@ -13,7 +13,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const lenis = (window as any).lenis;
+    const lenis = window.appLenis;
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });
     } else {
