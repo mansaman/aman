@@ -7,8 +7,8 @@ export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice || window.innerWidth < 1024) return;
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    if (!hasFinePointer || window.innerWidth < 1024) return;
 
     document.documentElement.classList.add('custom-cursor-active');
 
